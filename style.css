@@ -45,9 +45,18 @@ body {
     margin-bottom: 4px;
 }
 
-.item {
-    align-items: center;
+.number {
     background-color: bisque;
+}
+
+.operator, .equality {
+    background-color: rgb(164, 124, 48);
+}
+
+
+
+.number, .item, .operator, .equality {
+    align-items: center;
     border-radius: 3px;
     display: flex;
     font-size: 30px;
@@ -57,12 +66,9 @@ body {
     height: 4.5rem;
 }
 
-.item:hover {
+.operator:hover, .item:hover, .number:hover, .equality:hover {
     cursor: default;
-}
-
-.operator {
-    background-color: rgb(164, 124, 48);
+    opacity: 0.8;
 }
 
 .alt-btn {
@@ -72,3 +78,5 @@ body {
 .zero {
     width: 51%;
 }
+
+
