@@ -4,7 +4,6 @@ const operators = document.querySelectorAll(".operator");
 const equality = document.querySelector(".equality");
 let displayValue = document.querySelector(".output");
 
-
 let firstInput = "0";
 let secondInput = "0";
 let selectedOperator = "";
@@ -29,7 +28,6 @@ function subtraction(a, b) {
     let result = a - b;
     return result;
 }
-
 
 for (const number of numbers) {
     number.addEventListener("click", (event) => {
@@ -81,7 +79,6 @@ for (const operator of operators) {
         }    
     })
 }
-
 
 equality.addEventListener("click", () => {
 if (secondInput !== "0") {
