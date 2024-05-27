@@ -4,10 +4,12 @@ const operators = document.querySelectorAll(".operator");
 const equality = document.querySelector(".equality");
 let displayValue = document.querySelector(".output");
 
-let firstInput = "";
-let secondInput = "";
-let operator = "";
 
+let firstInput = "0";
+let secondInput = "0";
+let selectedOperator = "";
+
+// Calculation functions
 function addition(a, b) {
     let result = a + b;
     return result;
@@ -29,68 +31,76 @@ function subtraction(a, b) {
 }
 
 
-function operate(opr, a, b) {
-    if (opr === "+") {
-       return addition(a, b);
-    } else if (opr === "-") {
-        return subtraction(a, b);
-    } else if (opr === "*") {
-        return multiplication(a, b);
-    } else if (opr === "/") {
-        return division(a, b);
-    }
-}
-
-function getDisplayValue() {
-    displayValue = currentValue;
-}
-
-
 for (const number of numbers) {
     number.addEventListener("click", (event) => {
         if (event.target.innerHTML === "AC") {
-            displayValue.textContent = 0;
-        } else if (displayValue.innerHTML ==="0" && event.target.innerHTML === ".") { 
-            displayValue.textContent += event.target.innerHTML;
-        } else if (displayValue.innerHTML ==="0") { 
-            displayValue.textContent = "";
-            displayValue.textContent += event.target.innerHTML;
+            firstInput = "0";
+            secondInput = "0";
+            displayValue.textContent = firstInput;
+        } else if (firstInput === "0" && event.target.innerHTML === ".") {
+            firstInput += event.target.innerHTML; 
+            displayValue.textContent = firstInput;
+        } else if (firstInput === "0") { 
+            firstInput = event.target.innerHTML;
+            displayValue.textContent = firstInput;
         } else { 
-            displayValue.textContent += event.target.innerHTML;
+            firstInput += event.target.innerHTML;
+            displayValue.textContent = firstInput;
         }
-    })
+    });
 }  
 
 for (const operator of operators) {
     operator.addEventListener("click", (event) => {
-        operator = event.target.innerHTML;
         if (displayValue.innerHTML !== "0") {
-           firstInput = displayValue.innerHTML 
-        }      
+            if (selectedOperator !== "") {
+                if (secondInput !== "0" && firstInput !== "0") {
+                    if (selectedOperator === "+") {
+                        secondInput = addition(+secondInput, +firstInput);
+                        displayValue.innerHTML = secondInput;
+                        firstInput = "0" 
+                    } else if (selectedOperator === "*") {
+                        secondInput = multiplication(+secondInput, +firstInput);
+                        displayValue.innerHTML = secondInput;
+                        firstInput = "0" 
+                    } else if (selectedOperator === "/") {
+                        secondInput = division(+secondInput, +firstInput);
+                        displayValue.innerHTML = secondInput;
+                        firstInput = "0" 
+                    } else if (selectedOperator === "-") {
+                        secondInput = subtraction(+secondInput, +firstInput);
+                        displayValue.innerHTML = secondInput;
+                        firstInput = "0" 
+                    }
+                } else if (secondInput === "0") {
+                    secondInput = displayValue.innerHTML;
+                    firstInput = "0" 
+                }
+            }
+            selectedOperator = event.target.innerHTML;
+        }    
     })
 }
 
-// equality.addEventListener("click", () => {
-//     secondInput.push(firstInput)
-//     firstInput = "";
-//     if (secondInput.length === 1) {
-//         output.textContent = secondInput[0];
-//     } else if (secondInput.length === 2) {
-//         switch (selectedOperator) {
-//             case "+":
-//                 evalutedArr = Number(secondInput[0]) + Number(secondInput[1]);
-//                 output.textContent = evalutedArr;
-//                 secondInput = [];
-//                 secondInput.push(evalutedArr);
-//                 break;
-        
-//             default:
-//                 break;
-//         }
-//     }
-// //     let firstResult = secondInput[0];
-// //     let another = +firstResult
-// //     let secondResult = +firstInput;
-// //    alert(another)
-// //    alert(secondResult)
-// })
+
+equality.addEventListener("click", () => {
+if (secondInput !== "0") {
+        if (selectedOperator === "+") {
+            secondInput = addition(+secondInput, +firstInput);
+            displayValue.innerHTML = secondInput;
+            firstInput = "0" 
+        } else if (selectedOperator === "*") {
+            secondInput = multiplication(+secondInput, +firstInput);
+            displayValue.innerHTML = secondInput;
+            firstInput = "0" 
+        } else if (selectedOperator === "/") {
+            secondInput = division(+secondInput, +firstInput);
+            displayValue.innerHTML = secondInput;
+            firstInput = "0" 
+        } else if (selectedOperator === "-") {
+            secondInput = subtraction(+secondInput, +firstInput);
+            displayValue.innerHTML = secondInput;
+            firstInput = "0" 
+        }
+    }
+})
