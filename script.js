@@ -21,7 +21,11 @@ function multiplication(a, b) {
 
 function division(a, b) {
     let result = a / b;
-    return result;
+    if (Number.isInteger(result) === false) {
+        return result.toFixed(1);
+    } else {
+        return result;
+    }
 }
 
 function subtraction(a, b) {
@@ -35,6 +39,8 @@ for (const number of numbers) {
             firstInput = "0";
             secondInput = "0";
             displayValue.textContent = firstInput;
+        } else if (event.target.innerHTML === "." && displayValue.innerHTML.includes(".") === true) {
+            return;
         } else if (firstInput === "0" && event.target.innerHTML === ".") {
             firstInput += event.target.innerHTML; 
             displayValue.textContent = firstInput;
